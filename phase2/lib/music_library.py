@@ -25,7 +25,7 @@ class MusicLibrary():
             if artist not in self.music_dict:
                 print(f'{artist} does not exist in library. Use the add_track method first.')
             else:
-                print(f'You have the following tracks by {artist} in your library.')
+                print(f'You have the following tracks by {artist} in your library:')
                 for i in range(len(self.music_dict[artist])):
                     print(f' * {self.music_dict[artist][i]}')
         else:
