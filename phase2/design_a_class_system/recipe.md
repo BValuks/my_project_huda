@@ -26,33 +26,39 @@ Consider diagramming out the classes and their relationships. Take care to focus
 
 
 
-                                                         ┌──────────────────────────────────────────────┐
- ┌────────────────────────────────┐                      │EntrySelector (diary)                         │
- │PhoneNumberExtractor (diary)    │                      │                                              │
- │                                │                      │-best_entry_for_reading_time(Diary.entry_list)│
- │-list_numbers(Diary.entry_list) │                      └──┬───────────────────────┬───────────────────┘
- └────────┬───────────────────────┘                         │                       │
-          │               ▲          ┌──────────────┐       │                       │      ┌─────────────┐
-          │               │          │Diary         │       │                       │      │TodoList     │
-          │               └──────────┤-NumberExtract│◄──────┘                       │      │             │
-          │                          │-entry_list   │                               │      │-todo_list   │
-          │                          │-add()        │                               │      │-add()       │
-          │                          │-all()        │                               │      │-complete()  │
-          └────────────────────────► │-count_words()└───────────────────────────────┘      │-incomplete()│
-                                     │-list_numbers()                                      │-give_up()   │
-                                     │-entry_select()                                      └───┬─────────┘
-                                     └────┬─────────┘                                          │     ▲
-                                          │     ▲                                              ▼     │
-                                          ▼     │                                          ┌─────────┴───────┐
-                                     ┌──────────┴─────────────────┐                        │Todo (task)      │
-                                     │DiaryEntry (title, contents)│                        │                 │
-                                     │                            │                        │-task            │
-                                     │-entry title+contents       │                        │-complete        │
-                                     │-chunk_count                │                        │-mark_complete() │
-                                     │-word_count()               │                        └─────────────────┘
-                                     │-reading_time()             │
-                                     │-reading_chunk()            │
-                                     └────────────────────────────┘
+
+                                                          ┌──────────────────────────────────────────────┐
+  ┌────────────────────────────────┐                      │EntrySelector (diary)                         │
+  │PhoneNumberExtractor (diary)    │                      │-entries_containing_todo(diary, todo_list)    │
+  │                                │                      │-best_entry_for_reading_time(Diary.entry_list)│
+  │-list_numbers(Diary.entry_list) │                      └──────────────────────┬───────────┬───────────┘
+  └────────┬───────────────────────┘                               ▲             │           │       ▲
+           │               ▲          ┌───────────────┐            │             │           │       │
+           │               │          │Diary          │            │             │           │       │
+           │               └──────────┤-NumberExtract ├────────────┘             │           │       │
+           │                          │-entry_list    │                          │           │       │
+           │                          │-add()         │                          │           ▼       │
+           │                          │-all()         │                          │         ┌─────────┴───┐
+           └────────────────────────► │-count_words() │◄─────────────────────────┘         │TodoList     │
+                                      │-list_numbers()│                                    │             │
+                                      │-entry_select()│                                    │-todo_list   │
+                                      └────┬──────────┘                                    │-add()       │
+                                           │     ▲                                         │-complete()  │
+                                           ▼     │                                         │-incomplete()│
+                                      ┌──────────┴─────────────────┐                       │-give_up()   │
+                                      │DiaryEntry (title, contents)│                       └───┬─────────┘
+                                      │                            │                           │     ▲
+                                      │-entry title+contents       │                           ▼     │
+                                      │-chunk_count                │                       ┌─────────┴───────┐
+                                      │-word_count()               │                       │Todo (task)      │
+                                      │-reading_time()             │                       │                 │
+                                      │-reading_chunk()            │                       │-task            │
+                                      └────────────────────────────┘                       │-complete        │
+                                                                                           │-mark_complete() │
+                                                                                           └─────────────────┘
+
+
+
 
 
 

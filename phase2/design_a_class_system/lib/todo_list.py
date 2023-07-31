@@ -6,10 +6,10 @@ class TodoList():
         self.todo_list.append(task)
     
     def incomplete(self):
-        return [todo for todo in self.todo_list if todo.complete == False]
+        return [todo.task for todo in self.todo_list if todo.complete == False]
     
     def complete(self):
-        return [todo for todo in self.todo_list if todo.complete == True]
+        return [todo.task for todo in self.todo_list if todo.complete == True]
     
     def give_up(self):
         for todo in self.todo_list:

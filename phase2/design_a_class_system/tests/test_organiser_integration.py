@@ -98,7 +98,7 @@ def test_add_method_on_todolist_should_list_todos_as_incomplete():
     task2 = Todo('Example task 2')
     todo_list.add(task1)
     todo_list.add(task2)
-    todo_list.incomplete() == [task1, task2]
+    todo_list.incomplete() == ['Example task 1', 'Example task 2']
 
 '''
 Use #add on instance of TodoList, use #mark_complete on
@@ -114,8 +114,8 @@ def test_complete_method_should_list_completed_todos():
     todo_list.add(task2)
     task1.mark_complete()
     assert task1.complete == True
-    assert todo_list.complete() == [task1]
-    assert todo_list.incomplete() == [task2]
+    assert todo_list.complete() == ['Example task 1']
+    assert todo_list.incomplete() == ['Example task 2']
 
 '''
 Use #give_up on instance of TodoList containg todos
@@ -129,4 +129,22 @@ def test_give_up_method_should_mark_all_todos_as_complete():
     todo_list.add(task2)
     todo_list.give_up()
     assert todo_list.incomplete() == []
-    assert todo_list.complete() == [task1, task2]
+    assert todo_list.complete() == ['Example task 1', 'Example task 2']
+
+'''
+Given a diary containing entries with keyword #TODO
+Using #entries_containing_todo on an instance of EntrySelector
+Entries should be added to TodoList
+'''
+def test_entries_containing_todo_on_an_instance_of_entry_elector_should_select_and_add_task_to_a_todo_list():
+    diary = Diary()
+    entry1 = DiaryEntry('1st Feb', 'Self', '#TODO charge laptop')
+    entry2 = DiaryEntry('2nd Feb', 'Self', '#TODO walk the dog')
+    entry3 = DiaryEntry('3rd Feb', 'John Barnes', 'Had a kick-around')
+    diary.add(entry1)
+    diary.add(entry2)
+    diary.add(entry3)
+    todo_list = TodoList()
+    selector = EntrySelector()
+    selector.entries_containing_todo(diary, todo_list)
+    assert todo_list.incomplete() == ['#TODO charge laptop', '#TODO walk the dog']
