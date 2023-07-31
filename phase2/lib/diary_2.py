@@ -23,5 +23,5 @@ class Diary():
     def find_best_entry_for_reading_time(self, wpm, minutes):
         words_to_be_read = wpm * minutes
         suitable_entry_list = [entry for entry in self.entry_list if len(entry.split()) <= words_to_be_read]
-        sorted_list = sorted(suitable_entry_list, reverse=True)
+        sorted_list = sorted(suitable_entry_list, key=lambda entry: len(entry), reverse=True)
         return sorted_list[0]
